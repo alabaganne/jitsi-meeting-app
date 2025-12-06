@@ -1,102 +1,139 @@
-import { Button, Checkbox, Form, Input } from "antd";
-import image from "../assets/meet.jpg";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Button, Form, Input, Divider } from "antd";
+import { UserOutlined, LockOutlined, VideoCameraOutlined } from "@ant-design/icons";
+import { Link, useNavigate, useLocation } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
+import { LoginPayload } from "../types";
 
-const onFinish = (values: any) => {
-    console.log("Success:", values);
-};
+const Login: React.FC = () => {
+    const [loading, setLoading] = useState(false);
+    const { login } = useAuth();
+    const navigate = useNavigate();
+    const location = useLocation();
 
-const onFinishFailed = (errorInfo: any) => {
-    console.log("Failed:", errorInfo);
-};
+    const from = (location.state as { from?: { pathname: string } })?.from?.pathname || "/";
 
-type FieldType = {
-    username?: string;
-    password?: string;
-    remember?: string;
-};
+    const onFinish = async (values: LoginPayload) => {
+        setLoading(true);
+        const success = await login(values);
+        setLoading(false);
 
-const Login = () => {
+        if (success) {
+            navigate(from, { replace: true });
+        }
+    };
+
     return (
-        <div className="h-full flex">
-            <div className="w-1/2 flex-center">
-                <div className="w-full">
-                    <h2 className="text-blue-500 text-center mb-14">Login</h2>
+        <div className="min-h-full flex">
+            {/* Left Side - Form */}
+            <div className="w-full lg:w-1/2 flex items-center justify-center p-8 lg:p-16">
+                <div className="w-full max-w-md">
+                    <div className="text-center mb-8">
+                        <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center mx-auto mb-4 shadow-lg shadow-blue-500/30">
+                            <VideoCameraOutlined className="text-white text-2xl" />
+                        </div>
+                        <h1 className="text-2xl font-bold text-gray-900 mb-2">
+                            Welcome Back
+                        </h1>
+                        <p className="text-gray-500">
+                            Sign in to continue to Jitsi Meet
+                        </p>
+                    </div>
+
                     <Form
-                        className="mt-6"
-                        name="basic"
-                        labelCol={{ span: 8 }}
-                        wrapperCol={{ span: 16 }}
-                        style={{ maxWidth: 600 }}
-                        initialValues={{ remember: true }}
+                        name="login"
                         onFinish={onFinish}
-                        onFinishFailed={onFinishFailed}
-                        autoComplete="off"
+                        layout="vertical"
                         size="large"
+                        requiredMark={false}
                     >
-                        <Form.Item<FieldType>
-                            label="Username"
+                        <Form.Item
                             name="username"
+                            label="Username"
                             rules={[
-                                {
-                                    required: true,
-                                    message: "Please input your username!",
-                                },
+                                { required: true, message: "Please enter your username" },
                             ]}
                         >
-                            <Input placeholder="johndoe" />
+                            <Input
+                                prefix={<UserOutlined className="text-gray-400" />}
+                                placeholder="Enter your username"
+                            />
                         </Form.Item>
 
-                        <Form.Item<FieldType>
-                            label="Password"
+                        <Form.Item
                             name="password"
+                            label="Password"
                             rules={[
-                                {
-                                    required: true,
-                                    message: "Please input your password!",
-                                },
+                                { required: true, message: "Please enter your password" },
                             ]}
                         >
-                            <Input.Password />
+                            <Input.Password
+                                prefix={<LockOutlined className="text-gray-400" />}
+                                placeholder="Enter your password"
+                            />
                         </Form.Item>
 
-                        <Form.Item<FieldType>
-                            name="remember"
-                            valuePropName="checked"
-                            wrapperCol={{ offset: 8, span: 16 }}
-                        >
-                            <Checkbox>Remember me</Checkbox>
-                        </Form.Item>
-
-                        <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-                            <Button type="primary" htmlType="submit">
-                                Submit
+                        <Form.Item className="mb-4">
+                            <Button
+                                type="primary"
+                                htmlType="submit"
+                                loading={loading}
+                                block
+                                className="h-12"
+                            >
+                                Sign In
                             </Button>
                         </Form.Item>
                     </Form>
+
+                    <Divider className="text-gray-400">or</Divider>
+
                     <p className="text-center text-gray-500">
-                        You don't have an account?{" "}
-                        <Link to="/register">Register here</Link>
+                        Don't have an account?{" "}
+                        <Link to="/register" className="text-blue-600 font-medium hover:text-blue-700">
+                            Create one now
+                        </Link>
                     </p>
                 </div>
             </div>
-            <div className="bg-cover bg-center h-full w-1/2 flex-center relative overflow-hidden bg-gray-900 text-white text-center">
-                <div className="z-20">
-                    <h1>
-                        <span className="text-blue-500 textshadow-white-lg">
-                            Jitsi Meet
-                        </span>
-                        <span>!</span>
-                    </h1>
-                    <p className="-mt-4 text-gray-100 text-lg opacity-80">
-                        Business meetings have never been more secure.
+
+            {/* Right Side - Branding */}
+            <div className="hidden lg:flex w-1/2 bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-800 items-center justify-center p-16">
+                <div className="text-center text-white max-w-lg">
+                    <h2 className="text-4xl font-bold mb-6">
+                        Secure Video Meetings
+                    </h2>
+                    <p className="text-xl text-blue-100 mb-8">
+                        Connect with your team from anywhere in the world with our secure,
+                        easy-to-use video conferencing platform.
                     </p>
+                    <div className="grid grid-cols-2 gap-6 text-left">
+                        <div className="flex items-center gap-3">
+                            <div className="w-10 h-10 rounded-lg bg-white/20 flex items-center justify-center">
+                                <VideoCameraOutlined className="text-white" />
+                            </div>
+                            <span>HD Video Quality</span>
+                        </div>
+                        <div className="flex items-center gap-3">
+                            <div className="w-10 h-10 rounded-lg bg-white/20 flex items-center justify-center">
+                                <LockOutlined className="text-white" />
+                            </div>
+                            <span>End-to-End Encrypted</span>
+                        </div>
+                        <div className="flex items-center gap-3">
+                            <div className="w-10 h-10 rounded-lg bg-white/20 flex items-center justify-center">
+                                <UserOutlined className="text-white" />
+                            </div>
+                            <span>Unlimited Participants</span>
+                        </div>
+                        <div className="flex items-center gap-3">
+                            <div className="w-10 h-10 rounded-lg bg-white/20 flex items-center justify-center">
+                                <VideoCameraOutlined className="text-white" />
+                            </div>
+                            <span>Screen Sharing</span>
+                        </div>
+                    </div>
                 </div>
-                <img
-                    src={image}
-                    alt=""
-                    className="absolute top-0 h-full opacity-20 z-10"
-                />
             </div>
         </div>
     );
