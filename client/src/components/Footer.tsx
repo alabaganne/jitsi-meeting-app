@@ -1,8 +1,12 @@
 import React from "react";
 
-const Footer = () => {
+const Footer: React.FC = () => {
     return (
-        <div className="text-center pb-6">All rights reserved 2022 - 2023</div>
+        <footer className="py-4 px-6 text-center border-t border-gray-100 bg-white">
+            <p className="text-sm text-gray-500 m-0">
+                {new Date().getFullYear()} Jitsi Meet. Secure video conferencing for everyone.
+            </p>
+        </footer>
     );
 };
 
