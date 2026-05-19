@@ -2,9 +2,10 @@ const express = require("express");
 const { v4: uuidv4 } = require("uuid");
 const router = express.Router();
 const { authenticateToken } = require("./auth");
+const { demoMeetings } = require("../data/demoData");
 
-// In-memory meetings store (replace with database in production)
-const meetings = [];
+// In-memory meetings store seeded for demo purposes. Replace with a database in production.
+const meetings = demoMeetings.map((meeting) => ({ ...meeting }));
 
 // Get all meetings for the authenticated user
 router.get("/", authenticateToken, (req, res) => {

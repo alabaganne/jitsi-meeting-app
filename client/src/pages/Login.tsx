@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Form, Input, Divider } from "antd";
+import { Alert, Button, Form, Input, Divider } from "antd";
 import { UserOutlined, LockOutlined, VideoCameraOutlined } from "@ant-design/icons";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
@@ -7,11 +7,21 @@ import { LoginPayload } from "../types";
 
 const Login: React.FC = () => {
     const [loading, setLoading] = useState(false);
+    const [form] = Form.useForm<LoginPayload>();
     const { login } = useAuth();
     const navigate = useNavigate();
     const location = useLocation();
 
     const from = (location.state as { from?: { pathname: string } })?.from?.pathname || "/";
+
+    const demoAccount: LoginPayload = {
+        username: "demo",
+        password: "Demo@123",
+    };
+
+    const useDemoAccount = () => {
+        form.setFieldsValue(demoAccount);
+    };
 
     const onFinish = async (values: LoginPayload) => {
         setLoading(true);
@@ -40,7 +50,26 @@ const Login: React.FC = () => {
                         </p>
                     </div>
 
+                    <Alert
+                        type="info"
+                        showIcon
+                        className="mb-6"
+                        message="Demo account"
+                        description={
+                            <div className="space-y-2">
+                                <div>
+                                    Username: <strong>{demoAccount.username}</strong><br />
+                                    Password: <strong>{demoAccount.password}</strong>
+                                </div>
+                                <Button size="small" type="link" className="p-0" onClick={useDemoAccount}>
+                                    Fill demo credentials
+                                </Button>
+                            </div>
+                        }
+                    />
+
                     <Form
+                        form={form}
                         name="login"
                         onFinish={onFinish}
                         layout="vertical"

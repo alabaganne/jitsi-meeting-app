@@ -2,9 +2,13 @@ const express = require("express");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const router = express.Router();
+const { demoUsers } = require("../data/demoData");
 
-// In-memory user store (replace with database in production)
-const users = [];
+// In-memory user store seeded for demo purposes. Replace with a database in production.
+const users = demoUsers.map(({ password, ...user }) => ({
+    ...user,
+    password: bcrypt.hashSync(password, 10),
+}));
 
 const JWT_SECRET = process.env.JWT_SECRET || "your-secret-key-change-in-production";
 
