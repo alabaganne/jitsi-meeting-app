@@ -67,11 +67,10 @@ const Home: React.FC = () => {
                     <div className="flex flex-wrap justify-center gap-4">
                         {isAuthenticated ? (
                             <Button
-                                type="primary"
                                 size="large"
                                 icon={<PlusCircleOutlined />}
                                 onClick={() => navigate("/meetings/new")}
-                                className="h-12 px-8 text-base font-medium bg-white text-blue-600 border-white hover:bg-blue-50"
+                                className="h-12 px-8 text-base font-medium bg-white text-blue-700 border-white hover:!bg-gray-50 hover:!border-gray-50 hover:!text-blue-700"
                             >
                                 Create New Meeting
                             </Button>
@@ -89,7 +88,7 @@ const Home: React.FC = () => {
                             size="large"
                             icon={<VideoCameraOutlined />}
                             onClick={() => setJoinModalOpen(true)}
-                            className="h-12 px-8 text-base font-medium bg-transparent text-white border-white hover:bg-white/10"
+                            className="h-12 px-8 text-base font-medium bg-transparent text-white border-white hover:!bg-white/10 hover:!border-white hover:!text-white"
                         >
                             Join a Meeting
                         </Button>
@@ -98,13 +97,12 @@ const Home: React.FC = () => {
             </div>
 
             {/* Quick Actions */}
-            <div className="px-8 py-12 bg-gray-50">
+            <div className="px-8 py-12">
                 <div className="max-w-5xl mx-auto">
                     <Row gutter={[24, 24]}>
                         <Col xs={24} md={8}>
                             <Card
-                                hoverable
-                                className="text-center h-full border-0 shadow-sm"
+                                className="text-center h-full cursor-pointer border border-gray-100 bg-white transition-colors hover:bg-gray-50"
                                 onClick={() => setJoinModalOpen(true)}
                             >
                                 <div className="w-16 h-16 rounded-2xl bg-blue-100 flex items-center justify-center mx-auto mb-4">
@@ -120,8 +118,7 @@ const Home: React.FC = () => {
                         </Col>
                         <Col xs={24} md={8}>
                             <Card
-                                hoverable
-                                className="text-center h-full border-0 shadow-sm"
+                                className="text-center h-full cursor-pointer border border-gray-100 bg-white transition-colors hover:bg-gray-50"
                                 onClick={() => navigate(isAuthenticated ? "/meetings/new" : "/register")}
                             >
                                 <div className="w-16 h-16 rounded-2xl bg-green-100 flex items-center justify-center mx-auto mb-4">
@@ -137,8 +134,7 @@ const Home: React.FC = () => {
                         </Col>
                         <Col xs={24} md={8}>
                             <Card
-                                hoverable
-                                className="text-center h-full border-0 shadow-sm"
+                                className="text-center h-full cursor-pointer border border-gray-100 bg-white transition-colors hover:bg-gray-50"
                                 onClick={() => navigate(isAuthenticated ? "/meetings" : "/login")}
                             >
                                 <div className="w-16 h-16 rounded-2xl bg-purple-100 flex items-center justify-center mx-auto mb-4">
@@ -170,7 +166,7 @@ const Home: React.FC = () => {
                     <Row gutter={[32, 32]}>
                         {features.map((feature, index) => (
                             <Col xs={24} sm={12} lg={8} key={index}>
-                                <div className="p-6 rounded-xl bg-white border border-gray-100 hover:border-blue-200 hover:shadow-md transition-all h-full">
+                                <div className="p-6 rounded-xl bg-white border border-solid border-gray-100 hover:bg-gray-50 transition-colors h-full">
                                     <div className="mb-4">{feature.icon}</div>
                                     <h3 className="text-lg font-semibold text-gray-900 mb-2">
                                         {feature.title}
