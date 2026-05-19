@@ -169,7 +169,7 @@ const AppLayout: React.FC = () => {
 
     return (
         <ConfigProvider theme={lightTheme}>
-            <Layout style={{ minHeight: "100vh" }}>
+            <Layout className="h-screen overflow-hidden">
                 <Sider
                     trigger={null}
                     collapsible
@@ -177,7 +177,11 @@ const AppLayout: React.FC = () => {
                     style={{
                         background: "#fff",
                         borderRight: "1px solid #e5e7eb",
+                        height: "100vh",
+                        position: "sticky",
+                        top: 0,
                     }}
+                    className="shrink-0 overflow-y-auto overflow-x-hidden"
                     width={240}
                 >
                     <div className="p-4 border-b border-gray-100">
@@ -205,14 +209,14 @@ const AppLayout: React.FC = () => {
                         }}
                     />
                 </Sider>
-                <Layout>
+                <Layout className="h-screen min-w-0 overflow-hidden">
                     <Header
                         style={{
                             padding: "0 24px",
                             background: colorBgContainer,
                             borderBottom: "1px solid #e5e7eb",
                         }}
-                        className="flex justify-between items-center"
+                        className="flex shrink-0 justify-between items-center"
                     >
                         <Button
                             type="text"
@@ -260,19 +264,20 @@ const AppLayout: React.FC = () => {
                         </div>
                     </Header>
 
-                    <Content
-                        style={{
-                            margin: "24px",
-                            minHeight: 280,
-                            background: colorBgContainer,
-                            borderRadius: 12,
-                            overflow: "hidden",
-                        }}
-                        className="shadow-sm"
-                    >
-                        <Outlet />
-                    </Content>
-                    <Footer />
+                    <main className="flex-1 overflow-y-auto overflow-x-hidden p-6">
+                        <Content
+                            style={{
+                                minHeight: 280,
+                                background: colorBgContainer,
+                                borderRadius: 12,
+                                overflow: "hidden",
+                            }}
+                            className="shadow-sm"
+                        >
+                            <Outlet />
+                        </Content>
+                        <Footer />
+                    </main>
                 </Layout>
             </Layout>
             <JoinMeetingModal
