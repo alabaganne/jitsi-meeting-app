@@ -76,10 +76,9 @@ const Home: React.FC = () => {
                             </Button>
                         ) : (
                             <Button
-                                type="primary"
                                 size="large"
                                 onClick={() => navigate("/register")}
-                                className="h-12 px-8 text-base font-medium bg-white text-blue-600 border-white hover:bg-blue-50"
+                                className="h-12 px-8 text-base font-medium bg-white text-blue-700 border-white hover:!bg-gray-50 hover:!border-gray-50 hover:!text-blue-700"
                             >
                                 Get Started Free
                             </Button>
