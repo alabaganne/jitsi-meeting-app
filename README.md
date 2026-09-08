@@ -214,3 +214,9 @@ This project is licensed under the MIT License.
 ## Attribution and scope
 
 Jitsi provides the conferencing engine. This repository contains the surrounding application, including authentication and meeting management. It is not the upstream Jitsi Meet project. Recording and other conference features depend on the configured Jitsi deployment.
+
+## Demo
+
+[Open the demo](https://jitsi.alabaganne.com).
+
+![jitsi-meeting-app screenshot](https://raw.githubusercontent.com/alabaganne/Portfolio/main/public/projects/meet-demo.png)
