@@ -1,6 +1,6 @@
-# Jitsi Meet Video Conferencing App
+# Jitsi Meeting App
 
-A modern, production-ready video conferencing application built with React and Jitsi SDK. Features a clean light theme UI, user authentication, and complete meeting management.
+A video meeting application built with React and the Jitsi SDK. Features a clean light theme UI, user authentication, and complete meeting management.
 
 ![Jitsi Meet](https://img.shields.io/badge/Jitsi-Meet-blue) ![React](https://img.shields.io/badge/React-18-61dafb) ![TypeScript](https://img.shields.io/badge/TypeScript-5-3178c6) ![Ant Design](https://img.shields.io/badge/Ant%20Design-5-0170fe)
 
@@ -41,7 +41,7 @@ A modern, production-ready video conferencing application built with React and J
 
 1. **Clone the repository**
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/alabaganne/jitsi-meeting-app.git
    cd jitsi-meet
    ```
 
@@ -210,3 +210,7 @@ This project is licensed under the MIT License.
 - [Jitsi Meet](https://jitsi.org/) - Open source video conferencing
 - [Ant Design](https://ant.design/) - UI component library
 - [Tailwind CSS](https://tailwindcss.com/) - Utility-first CSS framework
+
+## Attribution and scope
+
+Jitsi provides the conferencing engine. This repository contains the surrounding application, including authentication and meeting management. It is not the upstream Jitsi Meet project. Recording and other conference features depend on the configured Jitsi deployment.
