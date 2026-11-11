@@ -64,6 +64,8 @@ A video meeting application built with React and the Jitsi SDK. Features a clean
    VITE_API_URL=http://localhost:3000/api
    ```
 
+   Production builds use `client/.env.production` (API at `https://jitsi-api.alabaganne.com/api`).
+
    Create `server/.env`:
    ```env
    PORT=3000
